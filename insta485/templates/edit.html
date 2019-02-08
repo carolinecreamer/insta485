@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<link rel="stylesheet" href="/static/css/style.css">
+		<title>insta485</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	</head>
+	<body>
+
+
+	<strong>{{logname}}</strong>
+	<br>
+	<img src = '/static/uploads/{{filename}}'>
+	<br>
+	<form action="" method="post" enctype="multipart/form-data">
+	  <input type="file" name="file">
+	  <input type="text" name="fullname" value="{{fullname}}"/>
+	  <input type="text" name="email" value="{{email}}"/>
+	  <input type="submit" name="update" value="submit"/>
+	</form>
+	<br>
+	<a href = "/accounts/password/"><strong> Change password </strong></a>
+	<br>
+	<a href = "/accounts/delete/"><strong> Delete account </strong></a>
+
+
+	</body>
+</html>

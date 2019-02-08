@@ -1,0 +1,10 @@
+#!/bin/bash
+
+file=insta485/var/insta485.sqlite3
+if [ ! -e "$file" ]; then
+	./bin/insta485db cr5005
+fi
+export FLASK_DEBUG=True
+export FLASK_APP=insta485
+export INSTA485_SETTINGS=config.py
+flask run --host 0.0.0.0 --port 8000

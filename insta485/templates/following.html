@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+		<link rel="stylesheet" href="/static/css/style.css">
+		<title>insta485</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	</head>
+	<body>
+		<header>
+			<a href='/'><img src="/static/images/logo.png" alt="Instagram logo" width="30" height="30">
+			<i>Insta</i>485</a>
+			<span style="float: right; font-size:smaller">
+                <b> 
+                    <a href="/explore/">Explore</a> 
+                </b>|<a href="/u/{{logname}}/"> {{logname}} </a>
+            </span>
+		</header>
+        <h1> <a href="/u/{{user_slug}}/">{{user_slug}} </a> follows </h1>
+		{% for follower in following %}
+            <div class=longBox>
+            {% for user in users%}
+				{% if user.username == follower.username2%}
+			        <a href="/u/{{user.username}}/">
+                    <img src="{{url_for('uploaded_file', filename=user.filename)}}" alt = "Profile Pic" width ="20" height="20"> {{user.username}} </a>
+                {% endif %}
+			{% endfor %}
+            <span style="float:right">
+            {% if follower.logname_follows_username %}
+            following
+            <form action="" method="post" enctype="multipart/form-data">
+              <input type="submit" name="unfollow" value="unfollow"/>
+              <input type="hidden" name="username" value="{{follower.username2}}"/>
+            </form>
+            {% else %}
+                {% if logname != follower.username2 %}
+                not following
+                <form action="" method="post" enctype="multipart/form-data">
+                  <input type="submit" name="follow" value="follow"/>
+                  <input type="hidden" name="username" value="{{follower.username2}}"/>
+                </form>
+                {% endif %}
+            {% endif %}
+            </span>
+            <br>
+            </div>
+		{% endfor %}
+	</body>
+</html>
+

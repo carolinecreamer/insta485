@@ -1,0 +1,12 @@
+#!/bin/bash
+
+#Stops on errors and prints commands
+set -e
+set -x
+
+pytest -v tests/
+pycodestyle setup.py insta485
+pydocstyle setup.py insta485
+pylint --reports=n --disable=cyclic-import --disable=no-member insta485
+
+./bin/insta485test-html

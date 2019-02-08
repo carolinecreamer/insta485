@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<link rel="stylesheet" href="/static/css/style.css">
+		<title>insta485</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<style>
+		</style>
+	</head>
+	<body>
+		<header>
+			<a href='/'><img src="/static/images/logo.png" alt="Instagram logo" width="30" height="30">
+				<i>Insta</i>485</a>
+			<span style="float:right; font-size:smaller"><a href="/explore/"><b> Explore </b></a>|<a href="/u/{{logname}}/"> {{logname}}</a></span>
+		</header>
+
+		<h3>{{username}}</h3>
+		{% if logname == username %}
+			<a href = '/accounts/edit/'> Edit profile </a>
+			<br>
+			<a href = '/accounts/logout/'> logout </a>
+			<!-- DO NOT CHANGE THIS -->
+			<form action="" method="post" enctype="multipart/form-data">
+				<input type="file" name="file">
+				<input type="submit" name="create_post" value="upload new post"/>
+			</form>
+		
+		{% elif logname_follows_username %}
+		following
+		<!-- DO NOT CHANGE THIS (aside from where we say 'FIXME') -->
+		<form action="" method="post" enctype="multipart/form-data">
+			<input type="submit" name="unfollow" value="unfollow"/>
+			<input type="hidden" name="username" value="{{username}}"/>
+		</form>
+		<br>
+		{% else %}
+		not following
+		<!-- DO NOT CHANGE THIS (aside from where we say 'FIXME') -->
+		<form action="" method="post" enctype="multipart/form-data">
+			<input type="submit" name="follow" value="follow"/>
+			<input type="hidden" name="username" value="{{username}}/">
+		</form>
+		<br>
+		{% endif %}
+
+		<h5> {{total_posts}} 
+			{% if total_post == 1%}
+			post
+			{% else %}
+			posts
+			{% endif %} 
+			<b> <a href="/u/{{username}}/followers/"> {{followers}} 
+					{% if followers == 1%}
+					follower
+					{% else %}
+					followers
+					{% endif %} 
+				</a>
+				<a href="/u/{{username}}/following/"> {{following}} following </a></b></h5>
+		<h5> {{fullname}}</h5>
+		{% for post in posts %}
+		<a href = "/p/{{post.postid}}/"> <img src = "{{url_for('uploaded_file', filename=post.filename)}}" alt = "post" width="200" height="200"></a>
+		{% endfor %}		
+	</body>
+</html>

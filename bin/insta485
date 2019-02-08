@@ -1,0 +1,38 @@
+#!/bin/bash
+# insta485db
+
+# Stop on errors
+set -e
+
+# Sanity check command line options
+usage() {
+  echo "Usage: $0 (create|destroy|reset|dump)"
+}
+
+if [ $# -ne 1 ]; then
+  usage
+  exit 1
+fi
+
+# Parse argument.  $1 is the first argument
+case $1 in
+  "create")
+    echo "FIXME implement me"
+    ;;
+
+  "destroy")
+    echo "FIXME implement me"
+    ;;
+
+  "reset")
+    echo "FIXME implement me"
+    ;;
+
+  "dump")
+    echo "FIXME implement me"
+    ;;
+  *)
+    usage
+    exit 1
+    ;;
+esac

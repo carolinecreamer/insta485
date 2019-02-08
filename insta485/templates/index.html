@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<link rel="stylesheet" href="/static/css/style.css">
+		<title>insta485</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	</head>
+	<body>
+		<header>
+			<a href='/'><img src="/static/images/logo.png" alt="Instagram logo" width="30" height="30">
+			<i>Insta</i>485</a>
+			<div style="float:right"">
+				<b> 
+					<a href="/explore/">Explore</a> 
+				</b>|
+				<a href="/u/{{logname}}/"> {{logname}} </a>
+			</div>
+		</header>
+		{% for post in posts %}
+			<div class="box">
+
+
+			<img src="{{url_for('uploaded_file', filename=post.owner_img_url)}}" alt = "Profile Pic" width ="20" height="20">
+			<a href="/u/{{post.owner}}/"><b>{{post.owner}}</b></a>
+			<a href="/p/{{post.postid}}/"><span style="float:right">{{post.timestamp}}</span></a>
+			<br>
+			<img src="{{url_for('uploaded_file', filename=post.filename)}}" alt = "Post {{post.filename}}"  width ="500" height="500">
+			<br>
+			{{post.likes}} 
+			{% if post.likes == 1%}
+				like
+			{% else %}
+				likes
+			{% endif %} 
+			<br>
+			<!-- DO NOT CHANGE THIS (aside from where we say 'FIXME') -->
+			{% if post.logname_likes_post %}
+			<form action="" method="post" enctype="multipart/form-data">
+			  <input type="hidden" name="postid" value="{{post.postid}}"/>
+			  <input type="submit" name="like" value="like"/>
+			</form>
+			{% else %}
+			<!-- DO NOT CHANGE THIS (aside from where we say 'FIXME') -->
+			<form action="" method="post" enctype="multipart/form-data">
+			  <input type="hidden" name="postid" value="{{post.postid}}"/>
+			  <input type="submit" name="unlike" value="unlike"/>
+			</form>
+			{% endif %}
+			{% for comment in post.comments %}
+				<b>	<a href = "/u/{{comment.owner}}/"> {{comment.owner}} </a></b> {{comment.text}}
+				<br>
+			{% endfor %}
+
+			<form action="" method="post" enctype="multipart/form-data">
+			  <input type="hidden" name="postid" value="{{post.postid}}"/>
+			  <input type="text" name="text"/>
+			  <input type="submit" name="comment" value="comment"/>
+			</form>
+			
+			</div>
+		{% endfor %}
+	</body>
+</html>
