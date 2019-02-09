@@ -4,6 +4,7 @@ insta485/html
 insta485/html/*
 */__pycache__
 *.orig
+cookies.txt
 =======
 # This is a sample .gitignore file that's useful for EECS 485 projects.
 #
