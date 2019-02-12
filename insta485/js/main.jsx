@@ -6,4 +6,3 @@ ReactDOM.render(
   <Posts url="/api/v1/p/1/" />,
   document.getElementById('reactEntry'),
 );
-

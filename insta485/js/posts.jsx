@@ -36,11 +36,21 @@ class Posts extends React.Component {
     // Render post
     return (
       <div className="posts">
-        <img src="{this.state.owner.img_url}" alt = "Profile Pic" width ="20" height="20" />
-		<a href="/u/{this.state.owner}/"> <b> {this.state.owner} </b> </a>
-        <p> and hi! </p>
+        <div className="box">
+
+        <img src={this.state.owner_img_url} alt = "Profile Pic" width ="20" height="20" />
+
+        <p> <a href="/u/{this.state.owner}/"> <b> {this.state.owner} </b> </a>
+
+        <a href="/p/{this.state.postid}/"> <span style={{"float" : "right"}}> {this.state.age} </span> </a></p>
+
+        <br></br>
         
-        <p><Likes url="/api/v1/p/<postid_slug>/likes/" /></p>
+        <img src={this.state.img_url} alt="Post {this.state.img_url}" width = "500" height="500"/>
+        <Likes url="/api/v1/p/<postid_slug>/likes/" />
+
+        <p> comments </p>
+        </div>
       </div>
     );
   }
