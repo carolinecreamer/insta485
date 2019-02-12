@@ -15,17 +15,17 @@ class Likes extends React.Component {
   componentDidMount() {
     // Call REST API to get number of likes
     fetch(this.props.url, { credentials: 'same-origin' })
-    .then((response) => {
-      if (!response.ok) throw Error(response.statusText);
-      return response.json();
-    })
-    .then((data) => {
-      this.setState({
-        num_likes: data.likes_count,
-        logname_likes_this: data.logname_likes_this,
-      });
-    })
-    .catch(error => console.log(error));  // eslint-disable-line no-console
+      .then((response) => {
+        if (!response.ok) throw Error(response.statusText);
+        return response.json();
+      })
+      .then((data) => {
+        this.setState({
+          num_likes: data.likes_count,
+          logname_likes_this: data.logname_likes_this,
+        });
+      })
+      .catch(error => console.log(error)); // eslint-disable-line no-console
   }
 
   render() {
@@ -37,7 +37,6 @@ class Likes extends React.Component {
     );
   }
 }
-
 
 
 Likes.propTypes = {
