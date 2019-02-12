@@ -53,6 +53,9 @@ def get_post_metadata(postid_url_slug):
             "LEFT JOIN users ON users.username = posts.owner "
             "WHERE postid = " + str(postid)
             ).fetchone()
+    print(type(posts))
+    if posts is None:
+        return flask.abort(404)
     context = posts
     context["post_show_url"] = "/p/" + str(postid) + "/"
     context["img_url"] = "/uploads/" + context["img_url"]
