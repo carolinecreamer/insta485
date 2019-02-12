@@ -1,9 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Likes from './likes';
+import Posts from './posts';
 
 ReactDOM.render(
-<Likes url="/api/v1/p/<postid_slug>/likes/" />,
+  <Posts url="/api/v1/p/1/" />,
   document.getElementById('reactEntry'),
 );
-
