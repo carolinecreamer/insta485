@@ -7,7 +7,7 @@ class Posts extends React.Component {
   constructor(props) {
     // Initialize mutable state
     super(props);
-    this.state = { postid: 0, img_url: "", owner: "", age: 0, owner_show_url: "", owner_img_url: "", post_show_url: "", url: "" };
+    this.state = { img_url: "", owner: "", age: 0, owner_show_url: "", owner_img_url: "", post_show_url: "", url: "" };
   }
 
   componentDidMount() {
@@ -19,7 +19,6 @@ class Posts extends React.Component {
     })
     .then((data) => {
       this.setState({
-        postid: data.postid,
         img_url: data.img_url,
         owner: data.owner,
         age: data.age,
@@ -36,18 +35,18 @@ class Posts extends React.Component {
     // Render post
     return (
       <div className="posts">
-        <div className="box">
 
+        <div className="box">
         <img src={this.state.owner_img_url} alt = "Profile Pic" width ="20" height="20" />
 
-        <p> <a href="/u/{this.state.owner}/"> <b> {this.state.owner} </b> </a>
+        <p> <a href={this.state.owner_show_url}> <b> {this.state.owner} </b> </a>
 
-        <a href="/p/{this.state.postid}/"> <span style={{"float" : "right"}}> {this.state.age} </span> </a></p>
+        <a href={this.state.post_show_url}> <span style={{"float" : "right"}}> {this.state.age} </span> </a></p>
 
         <br></br>
         
-        <img src={this.state.img_url} alt="Post {this.state.img_url}" width = "500" height="500"/>
-        <Likes url="/api/v1/p/<postid_slug>/likes/" />
+        <img src={this.state.img_url} alt="Post {this.state.img_url}" width = "500" height="500"/> 
+        <Likes url={this.state.url + "likes/"} />
 
         <p> comments </p>
         </div>

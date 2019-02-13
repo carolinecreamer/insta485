@@ -61,6 +61,8 @@ def get_post_metadata(postid_url_slug):
     context = posts
     context["post_show_url"] = "/p/" + str(postid) + "/"
     context["img_url"] = "/uploads/" + context["img_url"]
+    context["owner_img_url"] = "/uploads/" + context["owner_img_url"]
+    context["owner_show_url"] = "/u/" + context["owner"] + "/"
     context["url"] = flask.request.path
     return flask.jsonify(**context)
 
