@@ -40,9 +40,9 @@ class Posts extends React.Component {
 
         <img src={this.state.owner_img_url} alt = "Profile Pic" width ="20" height="20" />
 
-        <p> <a href="/u/{this.state.owner}/"> <b> {this.state.owner} </b> </a>
+        <p> <a href={this.state.owner_show_url}> <b> {this.state.owner} </b> </a>
 
-        <a href="/p/{this.state.postid}/"> <span style={{"float" : "right"}}> {this.state.age} </span> </a></p>
+        <a href={this.state.post_show_url}> <span style={{"float" : "right"}}> {this.state.age} </span> </a></p>
 
         <br></br>
         
