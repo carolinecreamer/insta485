@@ -2,16 +2,19 @@
 import flask
 import insta485
 from insta485.model import get_db
+from insta485.api.errors import InvalidUsage, handle_invalid_usage
 
 
 @insta485.app.route('/api/v1/p/', methods=["GET"])
 def get_posts():
     """Get Top 10 posts."""
+    if "username" not in flask.session:
+        raise InvalidUsage("Forbidden", status_code=403)
+        
     context = {}
     size = flask.request.args.get("size", default=10, type=int)
     page = flask.request.args.get("page", default=0, type=int)
-    if "username" not in flask.session:
-        flask.abort(403)
+
     logname = flask.session["username"]
     connection = get_db()
     cur = connection.execute(
@@ -44,10 +47,19 @@ def get_posts():
 @insta485.app.route('/api/v1/p/<int:postid_url_slug>/', methods=["GET"])
 def get_post_metadata(postid_url_slug):
     """Get post metadata."""
-    context = {}
     if "username" not in flask.session:
-        flask.abort(403)
+        raise InvalidUsage("Forbidden", status_code=403)
+        
+    context = {}
     postid = postid_url_slug
+
+    # Check if postid is out of range
+    cur = get_db().execute("SELECT COUNT(*) FROM posts WHERE 1=1")
+    # It returns a list of strings so we need to chop it into a comparable num
+    total_posts = int(str(cur.fetchall()[0])[13:-1])
+    if postid > total_posts:
+        raise InvalidUsage('Not Found', status_code=404)
+
     posts = get_db().execute(
         "SELECT posts.created as age, posts.filename as img_url, "
         " posts.owner as owner, users.filename as owner_img_url "
