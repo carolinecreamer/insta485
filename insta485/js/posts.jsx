@@ -33,6 +33,7 @@ class Posts extends React.Component {
 
   render() {
     // Render post
+    var likes_url = this.state.url + "likes/"
     return (
       <div className="posts">
 
@@ -46,8 +47,9 @@ class Posts extends React.Component {
         <br></br>
         
         <img src={this.state.img_url} alt="Post {this.state.img_url}" width = "500" height="500"/> 
-        <Likes url={this.state.url + "likes/"} />
-
+        {likes_url}
+        <Likes url={likes_url}/>
+        <Likes url="/api/v1/p/1/likes/"/>
         <p> comments </p>
         </div>
       </div>
