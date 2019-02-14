@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Post from './posts';
 import Posts from './posts';
 
 ReactDOM.render(
-  <Posts url="/api/v1/p/1/" />,
+  <Posts url="/api/v1/p/" />,
   document.getElementById('reactEntry'),
 );
