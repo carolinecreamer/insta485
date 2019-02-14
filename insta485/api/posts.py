@@ -10,7 +10,7 @@ def get_posts():
     """Get Top 10 posts."""
     if "username" not in flask.session:
         raise InvalidUsage("Forbidden", status_code=403)
-        
+
     context = {}
     size = flask.request.args.get("size", default=10, type=int)
     page = flask.request.args.get("page", default=0, type=int)
@@ -49,7 +49,7 @@ def get_post_metadata(postid_url_slug):
     """Get post metadata."""
     if "username" not in flask.session:
         raise InvalidUsage("Forbidden", status_code=403)
-        
+
     context = {}
     postid = postid_url_slug
 

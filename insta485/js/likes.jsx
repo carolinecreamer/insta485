@@ -20,6 +20,7 @@ class Likes extends React.Component {
         return response.json();
       })
       .then((data) => {
+        console.log(data);
         this.setState({
           num_likes: data.likes_count,
           logname_likes_this: data.logname_likes_this,

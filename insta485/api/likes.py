@@ -2,22 +2,13 @@
 import flask
 import insta485
 from insta485.model import get_db
-from insta485.api.errors import InvalidUsage, handle_invalid_usage
+from insta485.api.errors import InvalidUsage
 
 
 @insta485.app.route('/api/v1/p/<int:postid_url_slug>/likes/',
                     methods=["GET", "POST", "DELETE"])
 def get_likes(postid_url_slug):
-    """Return likes on postid.
-    Example:
-    {
-      "logname_likes_this": 1,
-      "likes_count": 3,
-      "postid": 1,
-      "url": "/api/v1/p/1/likes/"
-    }
-    """
-
+    """Return likes on postid."""
     if "username" not in flask.session:
         raise InvalidUsage("Forbidden", status_code=403)
 
@@ -33,7 +24,7 @@ def get_likes(postid_url_slug):
     context["postid"] = postid
 
     # Check if postid is out of range
-    cur =  get_db().execute("SELECT COUNT(*) FROM posts WHERE 1=1")
+    cur = get_db().execute("SELECT COUNT(*) FROM posts WHERE 1=1")
     # It returns a list of strings so we need to chop it into a comparable num
     total_posts = int(str(cur.fetchall()[0])[13:-1])
     if postid > total_posts:
