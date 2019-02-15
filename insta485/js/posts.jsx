@@ -7,7 +7,7 @@ class Posts extends React.Component {
   constructor(props) {
     // Initialize mutable state
     super(props);
-    this.state = { img_url: "", owner: "", age: 0, owner_show_url: "", owner_img_url: "", post_show_url: "", url: "" };
+    this.state = { img_url: "", owner: "", age: 0, owner_show_url: "", owner_img_url: "", post_show_url: "", url: this.props.url };
   }
 
   componentDidMount() {
@@ -33,7 +33,7 @@ class Posts extends React.Component {
 
   render() {
     // Render post
-    var likes_url = this.state.url + "likes/"
+    let likes_url = this.state.url.concat("/likes/");
     return (
       <div className="posts">
 
@@ -47,9 +47,11 @@ class Posts extends React.Component {
         <br></br>
         
         <img src={this.state.img_url} alt="Post {this.state.img_url}" width = "500" height="500"/> 
+        <br></br>
         {likes_url}
+        <br></br>
         <Likes url={likes_url}/>
-        <Likes url="/api/v1/p/1/likes/"/>
+        <Likes url="/api/v1/p/3/likes/"/>
         <p> comments </p>
         </div>
       </div>
@@ -92,7 +94,7 @@ class Index extends React.Component {
   render() {
     return (
       <div>
-      {this.state.results.map(function(user){
+      {this.state.results.map(function(user) {
             return <Posts url = {user.url}/>
       })}      
       </div>
