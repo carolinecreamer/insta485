@@ -48,10 +48,7 @@ class Posts extends React.Component {
         
         <img src={this.state.img_url} alt="Post {this.state.img_url}" width = "500" height="500"/> 
         <br></br>
-        {likes_url}
-        <br></br>
         <Likes url={likes_url}/>
-        <Likes url="/api/v1/p/3/likes/"/>
         <p> comments </p>
         </div>
       </div>

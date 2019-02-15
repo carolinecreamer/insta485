@@ -18,12 +18,12 @@ class Likes extends React.Component {
       .then((response) => { 
         if (!response.ok) throw Error(response.statusText); 
         return response.json(); }) 
-        .then((data) => { console.log(data, this.props.url); 
+        .then((data) => { console.log(data); 
           this.setState({ 
             num_likes: data.likes_count, 
             logname_likes_this: data.logname_likes_this, }); 
           })
-          .catch(error => console.log(error, 'url', this.props.url)); // eslint-disable-line no-console
+          .catch(error => console.log(error)); // eslint-disable-line no-console
               }
 
   handleClick(e) {
