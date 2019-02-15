@@ -46,8 +46,7 @@ class Likes extends React.Component {
     return (
       <div className="likes">
         <button onClick={this.handleClick}>
-          {/* <p>{this.state.logname_likes_this === True ? 'un' : ''} like</p> */}
-          like
+          <p>{this.state.logname_likes_this === 1 ? 'un' : ''}like</p>
         </button>
         <p>{this.state.num_likes} like{this.state.num_likes !== 1 ? 's' : ''}</p>
       </div>
