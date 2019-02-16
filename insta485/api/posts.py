@@ -79,7 +79,9 @@ def get_post_metadata(postid_url_slug):
     return flask.jsonify(**context)
 
 
-@insta485.app.route('/api/v1', methods=["GET"])
+@insta485.app.route('/api/v1/', methods=["GET"])
 def get_links():
     """Return links."""
+    if "username" not in flask.session:
+        raise InvalidUsage("Forbidden", status_code=403)
     return flask.jsonify(**{"posts": "/api/v1/p/", "url": "/api/v1/"})
