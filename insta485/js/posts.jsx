@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Likes from './likes';
+import Comments from './comments';
+
 
 class Posts extends React.Component {
 
@@ -34,6 +36,7 @@ class Posts extends React.Component {
   render() {
     // Render post
     let likes_url = this.state.url.concat("/likes/");
+    let comments_url = this.state.url.concat("/comments/")
     return (
       <div className="posts">
 
@@ -50,6 +53,7 @@ class Posts extends React.Component {
         <br></br>
         <Likes url={likes_url}/>
         <p> comments </p>
+        <Comments url ={comments_url}/>
         </div>
       </div>
     );

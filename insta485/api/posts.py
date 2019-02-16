@@ -4,7 +4,6 @@ import insta485
 from insta485.model import get_db
 from insta485.api.errors import InvalidUsage, handle_invalid_usage
 
-
 @insta485.app.route('/api/v1/p/', methods=["GET"])
 def get_posts():
     """Get Top 10 posts."""
