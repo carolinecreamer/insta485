@@ -15,6 +15,9 @@ def get_posts():
     size = flask.request.args.get("size", default=10, type=int)
     page = flask.request.args.get("page", default=0, type=int)
 
+    if size < 0 or page < 0:
+        raise InvalidUsage("Bad Request", status_code=400)
+
     logname = flask.session["username"]
     connection = get_db()
     cur = connection.execute(

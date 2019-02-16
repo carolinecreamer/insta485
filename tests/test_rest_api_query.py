@@ -11,9 +11,11 @@ class TestRestAPIQuery(TestBaseRestAPI):
         """Checks for 404 if query string parameters incorrect."""
         response = self.app.get(self.get_server_url() +
                                 util.posts_size_page("page", -1))
+
         self.assertEqual(response.status_code, 400,
                          "Incorrect response code,\
                           when trying incorrect querystring parameter")
+
         response = self.app.get(self.get_server_url() +
                                 util.posts_size_page("size", -1))
         self.assertEqual(response.status_code, 400,
