@@ -9,7 +9,7 @@ class Posts extends React.Component {
   constructor(props) {
     // Initialize mutable state
     super(props);
-    this.state = { img_url: "", owner: "", age: 0, owner_show_url: "", owner_img_url: "", post_show_url: "", url: this.props.url };
+    this.state = { img_url: "", owner: "", age: 0, owner_show_url: "", owner_img_url: "", post_show_url: "", url: ""};
   }
 
   componentDidMount() {
@@ -35,8 +35,9 @@ class Posts extends React.Component {
 
   render() {
     // Render post
-    let likes_url = this.state.url.concat("/likes/");
-    let comments_url = this.state.url.concat("/comments/")
+    let likes_url = this.props.url.concat("likes/");
+    let comments_url = this.props.url.concat("comments/")
+
     return (
       <div className="posts">
 
@@ -60,51 +61,7 @@ class Posts extends React.Component {
   }
 }
 
-class Index extends React.Component {
-
-  constructor(props) {
-    // Initialize mutable state
-    super(props);
-    this.state = { results:[],next: "", url : "" };
-  }
-  getUrls(json) {
-    urls = [];
-    for (var i = 0; i < json.length; i++ ) {
-        dates.push(json[i].url);
-    }
-    return urls;
-  }
-
-  componentDidMount() {
-    // Call REST API to get post data
-    fetch(this.props.url, { credentials: 'same-origin' })
-    .then((response) => {
-      if (!response.ok) throw Error(response.statusText);
-      return response.json();
-    })
-    .then((data) => {
-      this.setState({
-        results : data.results,
-        next : data.next,
-        url : data.url
-      });
-    })
-    .catch(error => console.log(error));  // eslint-disable-line no-console
-  }
-
-  render() {
-    return (
-      <div>
-      {this.state.results.map(function(user) {
-            return <Posts url = {user.url}/>
-      })}      
-      </div>
-    );
-  }
-}
-
-Index.propTypes = {
+Posts.propTypes = {
   url: PropTypes.string.isRequired,
 };
-
-export default Index;
+export default Posts;

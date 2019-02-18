@@ -4,7 +4,9 @@ import PropTypes from 'prop-types';
 class Comments extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = { comments: [ {owner: "", text: "", owner_show_url: ""} ] };
+		this.state = { comments: [ {owner: "", text: "", owner_show_url: ""} ], value: "" };
+		this.handleChange = this.handleChange.bind(this);
+		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
 	componentDidMount() {
@@ -20,17 +22,52 @@ class Comments extends React.Component {
 			}
 			this.setState({
 				comments: comment_list,
+				value: "",
 			});
 		})
 		.catch(error => console.log(error));
 	}
 
+	handleChange(event) {
+		this.setState({value: event.target.value});
+	}
+
+	handleSubmit(event) {
+		event.preventDefault();
+		fetch(this.props.url, {
+			credentials: 'include',
+			method: 'POST',
+			headers: {
+				'Accept': 'application/json', 
+				'Content-Type': 'application/json'				
+			},
+			body: JSON.stringify({
+				text: this.state.value
+			})
+		})
+		.then((response) => {
+			if (!response.ok) throw Error(response.statusText);
+			return response.json();
+		})
+		.then((data) => {
+			let joined = this.state.comments.concat({owner: data.owner, text: data.text, owner_show_url: data.owner_show_url})
+			this.setState({
+				comments: joined,
+				value: "",
+			});
+		})
+		.catch(error => console.log(error));
+	}
 	render() {
 		return (
 			<div className="comments">
-				{this.state.comments.map(item => (
-					<p><a href = {item.owner_show_url}><strong>{item.owner}</strong></a> {item.text}</p>
+				{this.state.comments.map((item, index) => (
+					<p key={'mykey' + index}><a href = {item.owner_show_url}><strong>{item.owner}</strong></a> {item.text}</p>
 				))}
+				<form id="comment-form" onSubmit={this.handleSubmit}>
+					<input type="text" value={this.state.value} onChange={this.handleChange}/>
+					<input type="submit" value="Submit"/>
+				</form>
 			</div>
 		);
 	}

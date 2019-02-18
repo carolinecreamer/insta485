@@ -35,7 +35,7 @@ def get_posts():
         (logname, logname)).fetchall()
 
     for post in results:
-        post["url"] = "/api/v1/p/" + str(post["postid"])
+        post["url"] = "/api/v1/p/" + str(post["postid"]) + "/"
     context["url"] = flask.request.path
     next_page = page + 1
     if size * page + size < len(total):
