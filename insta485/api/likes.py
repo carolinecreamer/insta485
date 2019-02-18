@@ -85,6 +85,7 @@ def get_likes(postid_url_slug):
         )
         logname_likes_this = cur.fetchone()
         # if(logname_likes_this):
-        return 201
+        return flask.jsonify({'logname': logname, 'postid': postid}), 201
+
         # Otherwise return error
     return flask.jsonify(**context)

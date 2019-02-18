@@ -4,7 +4,6 @@ import insta485
 from insta485.model import get_db
 from insta485.api.errors import InvalidUsage, handle_invalid_usage
 
-
 @insta485.app.route('/api/v1/p/', methods=["GET"])
 def get_posts():
     """Get Top 10 posts."""
@@ -14,6 +13,9 @@ def get_posts():
     context = {}
     size = flask.request.args.get("size", default=10, type=int)
     page = flask.request.args.get("page", default=0, type=int)
+
+    if size < 0 or page < 0:
+        raise InvalidUsage("Bad Request", status_code=400)
 
     logname = flask.session["username"]
     connection = get_db()
@@ -33,7 +35,7 @@ def get_posts():
         (logname, logname)).fetchall()
 
     for post in results:
-        post["url"] = "/api/v1/p/" + str(post["postid"])
+        post["url"] = "/api/v1/p/" + str(post["postid"]) + "/"
     context["url"] = flask.request.path
     next_page = page + 1
     if size * page + size < len(total):
@@ -76,7 +78,9 @@ def get_post_metadata(postid_url_slug):
     return flask.jsonify(**context)
 
 
-@insta485.app.route('/api/v1', methods=["GET"])
+@insta485.app.route('/api/v1/', methods=["GET"])
 def get_links():
     """Return links."""
+    if "username" not in flask.session:
+        raise InvalidUsage("Forbidden", status_code=403)
     return flask.jsonify(**{"posts": "/api/v1/p/", "url": "/api/v1/"})

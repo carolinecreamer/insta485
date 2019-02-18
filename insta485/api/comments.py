@@ -14,6 +14,13 @@ def get_comments(postid_url_slug):
     logname = flask.session["username"]
     connection = insta485.model.get_db()
 
+    sql_query = "select * from posts where postid = {0}".format(postid_url_slug)
+    cur = connection.execute(sql_query)
+    post_exists = cur.fetchone()
+
+    if post_exists is None:
+        raise InvalidUsage('Not Found', status_code=404)
+
     if flask.request.method == 'POST':
         post_text = flask.json.loads(flask.request.data)['text']
         sql_query = "insert into comments(owner,postid,text) values(\'"

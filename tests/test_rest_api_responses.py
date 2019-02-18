@@ -15,6 +15,7 @@ class TestRestAPIResponse(TestBaseRestAPI):
         # intially checks that "next" is empty
         response = self.app.get(self.get_server_url() + util.V_1P)
         json_value = json.loads(response.get_data().decode('utf8'))
+
         if 'next' in json_value:
             self.assertEqual(json_value["next"], "",
                              "Error: next url was not empty on db reset")
@@ -29,7 +30,6 @@ class TestRestAPIResponse(TestBaseRestAPI):
             self.assertTrue(False, ("Failed to generate random posts using "
                                     "insta485db random, error: "
                                     "{}.").format(error))
-
         # check that next gives a url
         response = self.app.get(self.get_server_url() + util.V_1P)
         json_value = json.loads(response.get_data().decode('utf8'))
@@ -39,6 +39,7 @@ class TestRestAPIResponse(TestBaseRestAPI):
         else:
             self.assertTrue(False, "Error: incorrect json object")
 
+
     def test_correct_responses(self):
         """Checks correct response for POST and DELETE Requests."""
         response = self.app.post(util.posts_comment_like(3, 'comments'),
@@ -46,7 +47,6 @@ class TestRestAPIResponse(TestBaseRestAPI):
                                  content_type='application/json')
         self.assertEqual(response.status_code, 201,
                          "Error: incorrect response when POST request sent")
-
         # send delete request to like
         response = self.app.delete(util.posts_comment_like(3, 'likes'),
                                    data=json.dumps({}),
@@ -58,6 +58,7 @@ class TestRestAPIResponse(TestBaseRestAPI):
         response = self.app.post(util.posts_comment_like(3, 'likes'),
                                  data=json.dumps({}),
                                  content_type='application/json')
+
         self.assertEqual(response.status_code, 201,
                          "Error: incorrect response when POST request sent")
 
@@ -73,6 +74,7 @@ class TestRestAPIResponse(TestBaseRestAPI):
 
         self.assertEqual(response.status_code, 409,
                          "Error: incorrect response when POST request sent")
+
 
     def test_logout_403(self):
         """Logs user out, and tests all api routes for 403 response."""
