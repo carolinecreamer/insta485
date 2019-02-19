@@ -33,6 +33,8 @@ class Index extends React.Component {
       .then((data) => {
         this.setState({
           results : this.state.results.concat(data.results),
+          next : data.next,
+          url : data.url,
         });
       })
       .catch(error => console.log(error));
