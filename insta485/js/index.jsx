@@ -31,7 +31,9 @@ class Index extends React.Component {
         return response.json();
       })
       .then((data) => {
-          this.state.results.concat(data.results);
+        this.setState({
+          results : this.state.results.concat(data.results),
+        });
       })
       .catch(error => console.log(error));
     }
