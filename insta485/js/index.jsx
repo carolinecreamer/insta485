@@ -8,6 +8,7 @@ class Index extends React.Component {
 	constructor(props) {
 	  	super(props);
 	    this.state = { results: [], next: "", url : "" };
+      this.fetchData = this.fetchData.bind(this);
   	}
   	componentDidMount() {
   		fetch(this.props.url, { credentials: 'same-origin' })
@@ -25,14 +26,14 @@ class Index extends React.Component {
   		.catch(error => console.log(error));
   	}
    fetchData() {
-        fetch(this.link, { credentials: 'same-origin' })
-        .then((response) => {
-            return response.json();
-          })
-          .then((data) => {
-              this.results.concat(data.results);
-          })
-          .catch(error => console.log(error));
+    fetch(this.state.next, { credentials: 'same-origin' })
+    .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+          this.state.results.concat(data.results);
+      })
+      .catch(error => console.log(error));
     }
     
   	render() {
