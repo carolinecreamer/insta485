@@ -46,6 +46,7 @@ class Index extends React.Component {
   }
 
   render() {
+    history.replaceState(this.state, {});
     return (
       <div>
         <InfiniteScroll
