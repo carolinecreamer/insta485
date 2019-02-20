@@ -1,7 +1,7 @@
 """REST API for comments."""
 import flask
 import insta485
-from insta485.api.errors import InvalidUsage, handle_invalid_usage
+from insta485.api.errors import InvalidUsage
 
 
 @insta485.app.route('/api/v1/p/<int:postid_url_slug>/comments/',
@@ -14,7 +14,8 @@ def get_comments(postid_url_slug):
     logname = flask.session["username"]
     connection = insta485.model.get_db()
 
-    sql_query = "select * from posts where postid = {0}".format(postid_url_slug)
+    sql_query = ("select * from posts where postid = {0}"
+                 .format(postid_url_slug))
     cur = connection.execute(sql_query)
     post_exists = cur.fetchone()
 
@@ -29,7 +30,9 @@ def get_comments(postid_url_slug):
         sql_query += post_text + "\')"
         cur = connection.execute(sql_query)
 
-        sql_query = "select commentid, owner, owner as owner_show_url, {0} as postid, text from comments where rowid = last_insert_rowid()".format(postid_url_slug)
+        sql_query = ("select commentid, owner, owner as owner_show_url,"
+                     " {0} as postid, text from comments where rowid = "
+                     "last_insert_rowid()".format(postid_url_slug))
         cur = connection.execute(sql_query)
         comment = cur.fetchone()
         comment['owner_show_url'] = '/u/' + comment['owner_show_url'] + '/'
@@ -37,11 +40,13 @@ def get_comments(postid_url_slug):
 
     context = {}
     context["url"] = flask.request.path
-    sql_query = "select commentid, owner, owner as owner_show_url, {0} as postid, text from comments where postid = {0}".format(postid_url_slug)
+    sql_query = ("select commentid, owner, owner as owner_show_url,"
+                 " {0} as postid, text from comments where postid ="
+                 " {0}".format(postid_url_slug))
     cur = connection.execute(sql_query)
     comments = cur.fetchall()
-    for c in comments:
-        c['owner_show_url'] = '/u/' + c['owner_show_url'] + '/'
+    for com in comments:
+        com['owner_show_url'] = '/u/' + com['owner_show_url'] + '/'
     context["comments"] = comments
 
     return flask.jsonify(**context)

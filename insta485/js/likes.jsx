@@ -65,7 +65,7 @@ class Likes extends React.Component {
     // Render number of likes
     return (
       <div className="likes">
-        <button title={this.state.button_text} onClick={this.handleClick}>
+        <button id='like-unlike-button' onClick={this.handleClick}>
           <p>{this.state.button_text} </p>
         </button>
         <p>{this.state.num_likes} like{this.state.num_likes !== 1 ? 's' : ''}</p>

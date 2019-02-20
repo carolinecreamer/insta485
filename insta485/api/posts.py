@@ -2,7 +2,8 @@
 import flask
 import insta485
 from insta485.model import get_db
-from insta485.api.errors import InvalidUsage, handle_invalid_usage
+from insta485.api.errors import InvalidUsage
+
 
 @insta485.app.route('/api/v1/p/', methods=["GET"])
 def get_posts():

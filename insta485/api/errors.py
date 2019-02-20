@@ -18,11 +18,11 @@ class InvalidUsage(Exception):
 
     def to_dict(self):
         """Convert input to dict."""
-        rv = dict(self.payload or ())
-        rv['message'] = self.message
+        r_v = dict(self.payload or ())
+        r_v['message'] = self.message
         if self.status_code is not None:
-            rv['status_code'] = self.status_code
-        return rv
+            r_v['status_code'] = self.status_code
+        return r_v
 
 
 @insta485.app.errorhandler(InvalidUsage)
