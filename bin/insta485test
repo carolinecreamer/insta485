@@ -4,6 +4,7 @@
 set -e
 set -x
 
+./node_modules/.bin/eslint --ext jsx insta485/js/
 pytest -v tests/
 pycodestyle setup.py insta485
 pydocstyle setup.py insta485

@@ -17,7 +17,7 @@ class Comments extends React.Component {
       })
       .then((data) => {
         const commentList = [];
-        for (let i = 0; i < data.comments.length; i++) {
+        for (let i = 0; i < data.comments.length; i += 1) {
           commentList.push({ owner: data.comments[i].owner,
             text: data.comments[i].text,
             owner_show_url: data.comments[i].owner_show_url });

@@ -26,7 +26,7 @@ class Likes extends React.Component {
         this.setState({
           num_likes: data.likes_count,
           logname_likes_this: data.logname_likes_this,
-          button_text: (data.logname_likes_this  ? 'unlike' : 'like')
+          button_text: (data.logname_likes_this ? 'unlike' : 'like'),
         });
       })
       .catch(error => console.log(error)); // eslint-disable-line no-console
@@ -39,28 +39,27 @@ class Likes extends React.Component {
       credentials: 'include',
       method: (this.state.logname_likes_this === 1 ? 'DELETE' : 'POST'),
       headers: { 'Content-Type': 'application/json' },
-      body : '{}'
+      body: '{}',
     })
       .then((response) => {
-        if (!response.ok) throw Error(response.statusText)
+        if (!response.ok) throw Error(response.statusText);
         console.log('status', response.status);
         return response.json;
       })
       .then((data) => {
-        // If like status has been changed correclty then
-        if (data.status === 204 && this.state.logname_likes_this) {
-          this.setState({
-            button_text: 'like',
-            logname_likes_this: false,
-            num_likes:  (num_likes - 1)
+        fetch(this.props.url, { credentials: 'same-origin' })
+          .then((response) => {
+            if (!response.ok) throw Error(response.statusText);
+            return response.json();
           })
-        } else if (data.status === 201) {
-          this.setState({
-            button_text: 'unlike',
-            logname_likes_this: true,
-            num_likes: (num_likes + 1)
-          })
-        }
+          .then((data) => {
+            console.log(data);
+            this.setState({
+              num_likes: data.likes_count,
+              logname_likes_this: data.logname_likes_this,
+              button_text: (data.logname_likes_this ? 'unlike' : 'like'),
+            });
+          });
       })
       .catch(error => console.log(error));
   }
