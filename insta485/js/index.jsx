@@ -9,9 +9,14 @@ class Index extends React.Component {
     super(props);
     this.state = { results: [], next: '', url: '' };
     this.fetchData = this.fetchData.bind(this);
-    // this.state = window.history.state;
+    if (performance.navigation.type === 2) {
+      this.state = history.state;
+    }
   }
   componentDidMount() {
+    if (performance.navigation.type === 2) {
+      return;
+    }
     fetch(this.props.url, { credentials: 'same-origin' })
       .then((response) => {
         if (!response.ok) throw Error(response.statusText);
@@ -35,7 +40,7 @@ class Index extends React.Component {
           next: data.next,
           url: data.url,
         });
-        // history.replaceState(this.state, {});
+        history.replaceState(this.state, {});
       })
       .catch(error => console.log(error)); // eslint-disable-line no-console
   }
