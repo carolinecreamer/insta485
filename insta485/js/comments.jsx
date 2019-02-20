@@ -65,8 +65,8 @@ class Comments extends React.Component {
   render() {
     return (
       <div className="comments">
-        {this.state.comments.map((item, index) => (
-          <p key={`mykey${index}`}><a href={item.owner_show_url}><strong>{item.owner}</strong></a> {item.text}</p>
+        {this.state.comments.map(item => (
+          <p><a href={item.owner_show_url}><strong>{item.owner}</strong></a> {item.text}</p>
         ))}
         <form id="comment-form" onSubmit={this.handleSubmit}>
           <input type="text" value={this.state.value} onChange={this.handleChange} />

@@ -57,8 +57,8 @@ class Index extends React.Component {
           results={this.state.results}
         >
           <div className="index">
-            {this.state.results.map((item, index) => (
-              <Posts url={item.url} key={`mykey${index}`} />
+            {this.state.results.map(item => (
+              <Posts url={item.url} />
             ))}
           </div>
         </InfiniteScroll>
