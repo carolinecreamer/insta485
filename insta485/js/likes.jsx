@@ -11,34 +11,36 @@ class Likes extends React.Component {
     // Initialize mutable state
     super(props);
     this.state = { num_likes: 0, logname_likes_this: false };
-    this.handleClick = this.handleClick.bind(this); } 
-    componentDidMount() {
-      // Call REST API to get number of likes 
-      fetch(this.props.url, { credentials: 'same-origin' }) 
-      .then((response) => { 
-        if (!response.ok) throw Error(response.statusText); 
-        return response.json(); }) 
-        .then((data) => { console.log(data); 
-          this.setState({ 
-            num_likes: data.likes_count, 
-            logname_likes_this: data.logname_likes_this, }); 
-          })
-          .catch(error => console.log(error)); // eslint-disable-line no-console
-              }
+    this.handleClick = this.handleClick.bind(this);
+  }
+  componentDidMount() {
+    // Call REST API to get number of likes 
+    fetch(this.props.url, { credentials: 'same-origin' })
+      .then((response) => {
+        if (!response.ok) throw Error(response.statusText);
+        return response.json();
+      })
+      .then((data) => {
+        this.setState({
+          num_likes: data.likes_count,
+          logname_likes_this: data.logname_likes_this });
+      })
+      .catch(error => console.log(error)); // eslint-disable-line no-console
+  }
 
   handleClick(e) {
     // Call REST API to add or remove a like
     e.preventDefault();
-    fetch(this.props.url, {credentials: 'same-origin'})
+    fetch(this.props.url, { credentials: 'same-origin' })
       .this((response) => {
         //
-        if(!response.ok) throw Error(response.statusText)
+        if (!response.ok) throw Error(response.statusText);
         return response.json;
-      } )
+      })
       .then((data) => {
         // If like status has been changed correclty then
-        console.log("button pressed")
-      } )
+        console.log('button pressed');
+      });
   }
 
   render() {
