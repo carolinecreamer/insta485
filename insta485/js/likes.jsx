@@ -12,7 +12,6 @@ class Likes extends React.Component {
     super(props);
     this.state = { num_likes: 0, logname_likes_this: false };
     this.handleClick = this.handleClick.bind(this);
-    this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
@@ -31,10 +30,6 @@ class Likes extends React.Component {
         });
       })
       .catch(error => console.log(error)); // eslint-disable-line no-console
-  }
-
-  handleChange(event) {
-    this.setState({ value: event.target.value });
   }
 
   handleClick(event) {
@@ -74,7 +69,7 @@ class Likes extends React.Component {
     // Render number of likes
     return (
       <div className="likes">
-        <button title={this.state.button_text} onClick={this.handleClick} onchange={this.handleChange}>
+        <button title={this.state.button_text} onClick={this.handleClick}>
           <p>{this.state.button_text} </p>
         </button>
         <p>{this.state.num_likes} like{this.state.num_likes !== 1 ? 's' : ''}</p>
