@@ -242,6 +242,15 @@ def show_create():
     if 'username' in flask.session:
         return flask.redirect('/accounts/edit/')
     if flask.request.method == 'POST':
+        # if Duplicates reload
+        create_account = "select count(*) from users where username = \'"
+        create_account += flask.request.form['username'] + "\'"
+        if get_db().cursor().execute(create_account):
+            return flask.redirect('/accounts/login/')
+        # if empty password reload
+        if not flask.request.form['password']:
+            return flask.redirect('/accounts/login/')
+        create_account = ""
         # Save POST request's file object to a temp file
         dummy, temp_filename = tempfile.mkstemp()
         file = flask.request.files["file"]
